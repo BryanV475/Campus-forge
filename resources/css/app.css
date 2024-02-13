@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+.main-window{
+    background-color: #F8F3D4;
+}
+
+.navlink{
+    font-size: 20px;
+    padding: 2em 1em;
+    color: #45474B;
+    transition: color 200ms ease-in-out;
+}
+
+.navlink:hover{
+    color: #F6416C;
+    transition: color 200ms ease-in;
+}
+
+.primary-title{
+    color: #F6416C;
+    font-size: 50px;
+}
+.btn-green{
+    background-color: #00B8A9;
+    color: white;
+    border-radius: 5px;
+    padding: 1em;
+}
