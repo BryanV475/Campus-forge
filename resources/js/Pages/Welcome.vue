@@ -28,45 +28,41 @@ defineProps({
 
             <template v-else>
                 <Link :href="route('login')" class="font-semibold navlink"
-                    >Log in</Link
+                    >Ingresar</Link
                 >
 
                 <Link
                     v-if="canRegister"
                     :href="route('register')"
                     class="ms-4 font-semibold navlink"
-                    >Register</Link
+                    >Registrar</Link
                 >
             </template>
         </div>
 
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
+        <div class="mx-auto p-6 lg:p-8">
             <div class="flex justify-center">
                 <!-- Your Logo Here -->
             </div>
 
             <div class="mt-16 flex flex-wrap justify-between items-center">
-                <div class="flex-1">
-                    <h2 class="text-3xl font-bold text-pink-600">
-                        CampusForge
-                    </h2>
-                    <p class="text-lg text-gray-700 my-4">
+                <div class="flex-1 pr-6">
+                    <img src="/images/logo.png" alt="logo" width="450" />
+                    <p class="text-2xl text-gray-700 my-4">
                         Crea tu viaje educativo con Campus Forge Enciende el
                         aprendizaje, forja el éxito.
                     </p>
-                    <a
-                        href="#"
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Saber más
-                    </a>
+                    <br />
+                    <a href="#more" class="btn-green"> Saber más </a>
                 </div>
-                <div class="flex-1">
-                    <img
-                        src="/storage/app/images/defensoria.webp"
-                        alt="Grupo de estudiantes"
-                        class="rounded-full shadow-lg"
-                    />
+                <div class="flex-1 p-4">
+                    <div class="circle-container">
+                        <img
+                            src="/images/port.png"
+                            alt="Grupo de estudiantes"
+                            class="main-img"
+                        />
+                    </div>
                     <!-- Asegúrate de cambiar la ruta de la imagen -->
                 </div>
             </div>
@@ -76,6 +72,75 @@ defineProps({
             >
                 <!-- Footer Content -->
             </div>
+        </div>
+    </div>
+    <div class="bg-white w-full info-cards" id="more">
+        <div class="flex justify-around items-center">
+            <!-- Tarjeta 1 -->
+            <div class="text-center p-4">
+                <div class="mb-5">
+                    <img
+                        src="/images/image1.png"
+                        alt="Explorar cursos"
+                        class="rounded-full w-56 h-56 mx-auto"
+                    />
+                    <!-- Reemplazar con la ruta correcta -->
+                </div>
+                <h3 class="text-xl font-semibold mb-5">Explorar cursos</h3>
+                <p class="text-xl text-gray-600 mx-2 px-4">
+                    Sumérjase en una amplia gama de cursos de diversas
+                    disciplinas. Encuentre el curso que se ajuste a sus con
+                    descripciones detalladas.
+                </p>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="text-center p-4">
+                <div class="mb-5">
+                    <img
+                        src="/images/image2.png"
+                        alt="Calificar y revisar"
+                        class="rounded-full w-56 h-56 mx-auto"
+                    />
+                    <!-- Reemplazar con la ruta correcta -->
+                </div>
+                <h3 class="text-xl font-semibold mb-5">Calificar y revisar</h3>
+                <p class="text-xl text-gray-600 px-4">
+                    Comparta su experiencia y ayude a la comunidad puntuando y
+                    cursos que hayas realizado. Sus comentarios marcan
+                    ¡diferencia!
+                </p>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="text-center p-4">
+                <div class="mb-5">
+                    <img
+                        src="/images/image3.png"
+                        alt="Unirse a nuestra comunidad"
+                        class="rounded-full w-56 h-56 mx-auto"
+                    />
+                    <!-- Reemplazar con la ruta correcta -->
+                </div>
+                <h3 class="text-xl font-semibold mb-5">
+                    Unirse a nuestra comunidad
+                </h3>
+                <p class="text-xl text-gray-600 px-4">
+                    Forme parte de una creciente comunidad de estudiantes y
+                    educadores. educadores. Participe en debates, comparta ideas
+                    y con sus compañeros.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-center space-x-4 footer">
+            <a href="#" class="footerlink">Github</a>
+            <a href="#" class="footerlink">Twitter</a>
+            <a href="#" class="footerlink">Facebook</a>
+        </div>
+
+        <div class="text-center text-gray-600 mt-4">
+            <p>Derechos reservados © tellxmaster & BryanV475 2024.</p>
         </div>
     </div>
 </template>

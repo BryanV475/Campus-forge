@@ -6,7 +6,15 @@
     display: none;
 }
 
+html, body{
+    scroll-behavior: smooth;
+}
+
 .main-window{
+    background-color: #F8F3D4;
+}
+
+.bg-primario{
     background-color: #F8F3D4;
 }
 
@@ -22,6 +30,11 @@
     transition: color 200ms ease-in;
 }
 
+
+.text-secundario{
+    color: #F6416C;
+    font-weight: bold;
+}
 .primary-title{
     color: #F6416C;
     font-size: 50px;
@@ -31,4 +44,27 @@
     color: white;
     border-radius: 5px;
     padding: 1em;
+}
+
+.main-img{
+    border-radius: 50%;
+}
+
+.info-cards{
+    margin: 60px 0;
+    padding: 8em 5em 2em 5em;
+}
+
+.footer{
+    margin-top: 150px;
+}
+
+.footerlink{
+    color: #45474B;
+    transition: color 200ms ease-in-out;
+}
+
+.footerlink:hover{
+    color: #F6416C;
+    transition: color 200ms ease-in;
 }

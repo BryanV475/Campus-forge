@@ -38,15 +38,19 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
+            <nav class="bg-primario border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
+                    <div class="flex justify-between h-32">
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationMark class="block h-9 w-auto" />
+                                    <img
+                                        src="/images/logo.png"
+                                        class="block h-14 w-auto"
+                                        alt="logo"
+                                    />
                                 </Link>
                             </div>
 
@@ -232,7 +236,7 @@ const logout = () => {
                                         >
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150 bg-primario"
                                             >
                                                 {{ $page.props.auth.user.name }}
 
@@ -259,18 +263,28 @@ const logout = () => {
                                         <div
                                             class="block uppercase px-4 py-2 text-xs text-gray-400"
                                         >
-                                            Manage Account
+                                            Administrar cuenta
                                         </div>
 
                                         <!-- Display User Role -->
                                         <div class="px-4 py-2">
-                                            <span v-for="role in $page.props.auth.user.roles" :key="role" class="text-xs uppercase font-semibold text-blue-600">{{ role.name }}</span>
+                                            <span
+                                                v-for="role in $page.props.auth
+                                                    .user.roles"
+                                                :key="role"
+                                                class="text-xs uppercase font-semibold text-secundario"
+                                                >{{
+                                                    role.name === "student"
+                                                        ? "Estudiante"
+                                                        : "Administrador"
+                                                }}</span
+                                            >
                                         </div>
 
                                         <DropdownLink
                                             :href="route('profile.show')"
                                         >
-                                            PROFILE
+                                            Perfil
                                         </DropdownLink>
 
                                         <DropdownLink
@@ -288,7 +302,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
-                                                LOG OUT
+                                                Cerrar Sesión
                                             </DropdownLink>
                                         </form>
                                     </template>
