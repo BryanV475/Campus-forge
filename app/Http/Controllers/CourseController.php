@@ -15,6 +15,8 @@ class CourseController extends Controller
 
     public function getCourseById($idCourse) {
         $course = Course::find($idCourse);
+        $course->ratings = Rating::where('course_id', $idCourse)->get();
+        $course->average_rating = Rating::where('course_id', $idCourse)->avg('rating');
         return response()->json($course);
     }
 
