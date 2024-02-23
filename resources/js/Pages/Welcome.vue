@@ -45,7 +45,9 @@ defineProps({
                 <!-- Your Logo Here -->
             </div>
 
-            <div class="mt-16 flex flex-wrap justify-between items-center">
+            <div
+                class="mt-16 ml-16 flex flex-wrap justify-between items-center"
+            >
                 <div class="flex-1 pr-6">
                     <img src="/images/logo.png" alt="logo" width="450" />
                     <p class="text-2xl text-gray-700 my-4">
