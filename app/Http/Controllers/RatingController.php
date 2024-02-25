@@ -7,15 +7,24 @@ use App\Models\Rating;
 
 class RatingController extends Controller
 {
-    public function createRatingByCourse(Request $request, $courseId) {
+    public function createRatingByCourse(Request $request) {
         $rating = new Rating();
-        $rating->course_id = $courseId;
+        $rating->course_id = $request->course_id;
         $rating->user_id = $request->user_id;
         $rating->rating = $request->rating;
         $rating->comment = $request->comment ?? null; // El comentario es opcional
         $rating->save();
 
         return response()->json($rating, 201);
+    }
+
+    public function getRatingsByCourse($courseId)
+    {
+        $ratings = Rating::where('course_id', $courseId)
+                    ->with(['user:id,name', 'course']) // Asegúrate de que el modelo User tenga un campo 'name'
+                    ->get(['id', 'user_id', 'course_id', 'rating', 'comment']);
+
+        return response()->json($ratings);
     }
 
     public function deleteRating($idRating) {

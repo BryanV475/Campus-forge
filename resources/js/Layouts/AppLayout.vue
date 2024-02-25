@@ -37,7 +37,7 @@ const logout = () => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-primario">
             <nav class="bg-primario border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,12 +58,13 @@ const logout = () => {
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
+                                <!--<NavLink
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
                                 </NavLink>
+                                -->
                             </div>
                         </div>
 
@@ -366,7 +367,7 @@ const logout = () => {
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            Dashboard
+                            Cursos
                         </ResponsiveNavLink>
                     </div>
 
@@ -514,8 +515,8 @@ const logout = () => {
             </nav>
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header v-if="$slots.header" class="bg-primario">
+                <div class="max-w-7xl mx-auto py-6 px-2 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('image_url')->nullable();
             $table->string('syllabus_url')->nullable();
             $table->timestamps();
         });

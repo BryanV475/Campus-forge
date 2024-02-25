@@ -29,7 +29,8 @@ Route::delete('/courses/{id}', [CourseController::class, 'deleteCourse']);
 Route::post('/courses/{id}/upload', [CourseController::class, 'fileUpload']);
 
 
-Route::post('/courses/{courseId}/ratings', [RatingController::class, 'createRatingByCourse']);
+Route::post('/ratings', [RatingController::class, 'createRatingByCourse']);
+Route::get('/ratings/{courseId}', [RatingController::class, 'getRatingsByCourse']);
 Route::delete('/ratings/{id}', [RatingController::class, 'deleteRating']);
 Route::put('/ratings/{id}', [RatingController::class, 'editRating']);
 Route::get('/courses/{courseId}/average-rating', [RatingController::class, 'getAverageRateByCourse']);
