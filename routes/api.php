@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,10 @@ Route::get('/ratings/{courseId}', [RatingController::class, 'getRatingsByCourse'
 Route::delete('/ratings/{id}', [RatingController::class, 'deleteRating']);
 Route::put('/ratings/{id}', [RatingController::class, 'editRating']);
 Route::get('/courses/{courseId}/average-rating', [RatingController::class, 'getAverageRateByCourse']);
+
+Route::post('/files', [FileController::class, 'store']);
+Route::get('/files/unapproved/{id}', [FileController::class, 'getUnapprovedFilesByCourseId']);
+Route::get('/files/approved/{id}', [FileController::class, 'getApprovedFilesByCourseId']);
+Route::get('/files/all/{id}', [FileController::class, 'getAllFilesByCourseId']);
+Route::put('/files/approve/{id}', [FileController::class, 'approveFile']);
+Route::delete('/files/{id}', [FileController::class, 'deleteFile']);
