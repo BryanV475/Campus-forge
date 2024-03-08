@@ -32,8 +32,18 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('UserDashboard');
+        // Asegúrate de que el usuario esté autenticado
+        $user = Auth::user();
+
+        // Comprueba si el usuario tiene el rol de 'student'
+        if ($user->hasRole('student')) {
+            return Inertia::render('UserDashboard');
+        }
+
+        // Si el usuario es 'admin' o cualquier otro rol, muestra el AdminDashboard
+        return Inertia::render('AdminDashboard');
     })->name('dashboard');
 
     Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 });
+

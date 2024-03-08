@@ -8,6 +8,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Footer from "@/Components/Footer.vue";
 import Modal from "@/Components/Modal.vue";
 import DialogModal from "@/Components/DialogModal.vue";
+import UploadModal from "@/Components/UploadModal.vue";
+import FileLink from "@/Components/FileLink.vue";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import axios from "axios";
@@ -27,13 +29,95 @@ const props = defineProps({
 
 const rating = ref(0);
 const ratings = ref([]);
+const files = ref([]);
 const comment = ref("");
 const courseId = computed(() => props.course.id);
 const userId = computed(() => props.user.id);
 const isModalVisible = ref(false);
+const isUploadModalVisible = ref(false);
+const uploadSuccess = ref(false);
 const averageRating = ref(parseFloat(props.course.avg_rating).toFixed(2));
 
+const openModal = () => {
+    isUploadModalVisible.value = true;
+};
+
+const handleCloseModal = () => {
+    isUploadModalVisible.value = false;
+};
+
+const handleFileUploaded = async (file) => {
+    try {
+        if (!(file instanceof File)) {
+            throw new Error(
+                "El parámetro file debe ser un objeto de tipo File"
+            );
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("course_id", courseId.value);
+
+        const response = await axios.post("/api/files", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        if (response.status === 200) {
+            notyf.success("¡Archivo cargado exitosamente!");
+            handleCloseModal();
+            uploadSuccess.value = !uploadSuccess.value;
+            getApprovedFiles();
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            console.error("Error al cargar el archivo:", error.response.data);
+            notyf.error(
+                "Error al cargar el archivo: " + error.response.data.message
+            );
+        } else if (error.request) {
+            console.error("Error de conexión:", error.request);
+            notyf.error(
+                "Error de conexión. Por favor, intenta de nuevo más tarde."
+            );
+        } else {
+            console.error("Error al cargar el archivo:", error.message);
+            notyf.error(
+                "Ocurrió un error. Por favor, intenta de nuevo más tarde."
+            );
+        }
+    }
+};
+
+const resetForm = () => {
+    // Resetear los modelos que estás usando en tu formulario
+    rating.value = 0; // Asume que el rating por defecto es 0
+    comment.value = ""; // Asume que el comentario se limpia con una cadena vacía
+    // Reinicia cualquier otra variable del estado que necesites aquí
+};
+
+const getApprovedFiles = async () => {
+    try {
+        const response = await axios.get(
+            `/api/files/approved/${courseId.value}`
+        );
+        if (response.data && Array.isArray(response.data)) {
+            files.value = response.data;
+        } else {
+            console.error("La respuesta no es un array", response);
+        }
+    } catch (error) {
+        console.error("Error al cargar los archivos:", error);
+        // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario.
+    }
+};
+
 const submitRating = async () => {
+    if (rating.value === 0) {
+        notyf.error("Por favor, proporcione una calificación antes de enviar.");
+        return; // Termina la ejecución de la función aquí
+    }
     try {
         const response = await axios.post("http://localhost:8000/api/ratings", {
             user_id: userId.value,
@@ -41,14 +125,27 @@ const submitRating = async () => {
             rating: rating.value,
             comment: comment.value,
         });
+
         console.log(response.data); // Procesa la respuesta del servidor
         notyf.success("Reseña agregada exitosamente!");
         fetchRatings();
         averageRating.value = await getAverageRating(courseId.value);
         isModalVisible.value = false;
+        resetForm();
     } catch (error) {
-        console.error(error); // Maneja el error aquí
-        notyf.error(`Error al postear: ${error}`);
+        // Maneja el error aquí
+        if (
+            error.response &&
+            error.response.data &&
+            error.response.data.error
+        ) {
+            // Aquí se maneja la respuesta de error personalizada desde el backend
+            notyf.error(error.response.data.error);
+        } else {
+            // Si la respuesta de error no tiene el formato esperado, muestra un mensaje genérico
+            notyf.error("Ocurrió un error al enviar la reseña.");
+        }
+        console.error(error);
     }
 };
 
@@ -84,6 +181,7 @@ const updateRating = (newRating) => {
 
 onMounted(() => {
     fetchRatings();
+    getApprovedFiles();
 });
 </script>
 
@@ -136,17 +234,37 @@ onMounted(() => {
                     </div>
                 </div>
                 <!-- Recursos -->
+
                 <h3 class="mt-6 font-bold text-gray-800">Recursos</h3>
-                <!-- Íconos de recursos (enlaces al sílabo) -->
-                <a
-                    :href="course.syllabus_url"
-                    class="mt-2 inline-block bg-red-100 text-red-500 py-2 px-4 rounded"
-                    >Sílabo</a
+                <div class="files-container flex flex-wrap items-start">
+                    <!-- Item por defecto para el sílabo -->
+                    <FileLink
+                        title="Sílabo"
+                        :file-path="`/storage/${course.syllabus_url}`"
+                        class="mr-2 mb-2"
+                    />
+
+                    <!-- Bucle para otros archivos -->
+                    <FileLink
+                        v-for="file in files"
+                        :key="file.id"
+                        :title="file.name"
+                        :file-path="`${file.path
+                            .replace('public/', 'storage/')
+                            .replace('/courses', '')}`"
+                        class="mr-2 mb-2"
+                    />
+                </div>
+                <button
+                    @click="openModal"
+                    class="text-blue-600 hover:text-blue-800 underline font-semibold py-2 px-4 rounded focus:outline-none focus:underline"
                 >
+                    + Agregar Recurso
+                </button>
             </div>
 
             <div
-                class="w-full sm:w-full md:w-2/5 lg:w-2/3 xl:w-1/4 2xl:w-1/5 p-4"
+                class="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 p-4"
             >
                 <h3 class="font-bold text-xl text-gray-800">Comentarios</h3>
                 <!-- Lista de Comentarios -->
@@ -239,6 +357,13 @@ onMounted(() => {
                 </form>
             </div>
         </Modal>
+        <UploadModal
+            :show-upload-modal="isUploadModalVisible"
+            :reset="uploadSuccess"
+            @close="handleCloseModal"
+            @file-uploaded="handleFileUploaded"
+        />
+
         <Footer />
     </AppLayout>
 </template>

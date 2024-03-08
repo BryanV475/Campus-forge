@@ -69,29 +69,46 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">Recuerdamé</span>
-                </label>
-            </div>
+            <div class="flex flex-col items-center justify-center mt-4">
+                <!-- Contenedor para Recuérdame y ¿Has olvidado tu contraseña? -->
+                <div class="flex justify-between items-center w-full mb-4">
+                    <div class="flex items-center">
+                        <Checkbox
+                            v-model:checked="form.remember"
+                            name="remember"
+                        />
+                        <span class="ms-2 text-sm text-gray-600"
+                            >Recuérdame</span
+                        >
+                    </div>
+                    <Link
+                        v-if="canResetPassword"
+                        :href="route('password.request')"
+                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        ¿Has olvidado tu contraseña?
+                    </Link>
+                </div>
 
-            <div class="flex flex-col items-center justify-center mt-8">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    ¿Has olvidado tú contraseña?
-                </Link>
-
+                <!-- Botón de Ingresar en el centro -->
                 <PrimaryButton
-                    class="my-6"
+                    class="my-6 self-center"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Ingresar
                 </PrimaryButton>
+
+                <!-- Mensaje de ¿No tienes Cuenta? con el enlace para registrarse -->
+                <div>
+                    <span class="text-sm text-gray">¿No tienes Cuenta?</span>
+                    <Link
+                        :href="route('register')"
+                        class="underline text-sm text-blue-800 text-bold hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Regístrate
+                    </Link>
+                </div>
             </div>
         </form>
     </AuthenticationCard>

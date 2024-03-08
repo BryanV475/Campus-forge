@@ -16,7 +16,7 @@ class RatingController extends Controller
 
         foreach ($blacklist as $word) {
             if (stripos($comment, $word) !== false) {
-                return response()->json(['error' => 'Your comment contains blacklisted words.'], 400);
+                return response()->json(['error' => 'Tu comentario contiene palabras prohibidas, ten cuidado.'], 400);
             }
         }
 

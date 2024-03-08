@@ -14,12 +14,12 @@ class CourseSeeder extends Seeder
     {
         // seed the courses
         $courses = [
-            ['name' => 'Calculo Diferencial e Integral', 'description' => 'Derivadas e integrales', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
-            ['name' => 'Quimica', 'description' => 'Elementos Quimicos', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
-            ['name' => 'Fundamentos de Programacion', 'description' => 'Programacion Basica Pseint', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
-            ['name' => 'Algebra Lineal', 'description' => 'Matrices, Gauss algebra basica', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
-            ['name' => 'Fundamentos de la Ingenieria de Software', 'description' => 'Elementos basicos del software y de que se compone', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
-            ['name' => 'Metodologia de la Investigacion', 'description' => 'Pasos basicos para como comenzar una investigacion', 'image_url' => '', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Calculo Diferencial e Integral', 'description' => 'Derivadas e integrales', 'image_url' => '/images/calculo.jpg', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Quimica', 'description' => 'Elementos Quimicos', 'image_url' => '/images/quimica.jpg', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Fundamentos de Programacion', 'description' => 'Programacion Basica Pseint', 'image_url' => '/images/programacion.webp', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Algebra Lineal', 'description' => 'Matrices, Gauss algebra basica', 'image_url' => '/images/algebra.webp', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Fundamentos de la Ingenieria de Software', 'description' => 'Elementos basicos del software y de que se compone', 'image_url' => '/images/fund_prog.jpg', 'level' => 1, 'syllabus_url' => ''],
+            ['name' => 'Metodologia de la Investigacion', 'description' => 'Pasos basicos para como comenzar una investigacion', 'image_url' => '/images/investigacion.jpg', 'level' => 1, 'syllabus_url' => ''],
             ['name' => 'Calculo Vectorial', 'description' => 'Origen y utilizacion de los vectores, operaciones con vectores', 'image_url' => '', 'level' => 2, 'syllabus_url' => ''],
             ['name' => 'Fisica 1', 'description' => 'Fundamentos de la fisica, leyes de la fisica', 'image_url' => '', 'level' => 2, 'syllabus_url' => ''],
             ['name' => 'Ecuaciones Diferenciales y Ordinarias', 'description' => 'Principio de las Ecuaciones diferenciales ordinarias, ejercicios, metodos', 'image_url' => '', 'level' => 2, 'syllabus_url' => ''],

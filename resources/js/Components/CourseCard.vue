@@ -2,6 +2,17 @@
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiStar } from "@mdi/js";
 import { Link } from "@inertiajs/vue3";
+
+let levels = {
+    1: "Primero",
+    2: "Segundo",
+    3: "Tercero",
+    4: "Cuarto",
+    5: "Quinto",
+    6: "Sexto",
+    7: "Séptimo",
+    8: "Octavo",
+};
 </script>
 <template>
     <Link
@@ -9,7 +20,7 @@ import { Link } from "@inertiajs/vue3";
         :href="route('courses.show', { id: courseId })"
     >
         <img
-            :src="image"
+            :src="image ? image : '/images/default.png'"
             alt="Course image"
             class="w-full h-48 object-cover rounded-md"
         />
@@ -29,6 +40,7 @@ import { Link } from "@inertiajs/vue3";
                 </span>
             </div>
         </div>
+        <p>{{ levels[level] }}</p>
         <p class="text-gray-700 text-base mb-4">{{ description }}</p>
     </Link>
 </template>
@@ -41,6 +53,7 @@ export default {
         title: String,
         description: String,
         rating: Number,
+        level: Number,
         image: String, // Prop para la imagen
     },
     components: {
